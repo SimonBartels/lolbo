@@ -89,9 +89,9 @@ class MoleculeObjective(LatentSpaceObjective):
         self.vae = InfoTransformerVAE(dataset=self.dataobj)
         # load in state dict of trained model:
         if self.path_to_vae_statedict:
-            state_dict = torch.load(self.path_to_vae_statedict) 
+            state_dict = torch.load(self.path_to_vae_statedict, map_location=torch.device('cpu'))
             self.vae.load_state_dict(state_dict, strict=True) 
-        self.vae = self.vae.cuda()
+        #self.vae = self.vae.cuda()
         self.vae = self.vae.eval()
         # set max string length that VAE can generate
         self.vae.max_string_length = self.max_string_length
